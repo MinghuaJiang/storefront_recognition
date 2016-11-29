@@ -1,4 +1,5 @@
-import text_detector
 import business_lexicon_generator
 import preprocessing
+from text_detector import TextDetector
+
 
