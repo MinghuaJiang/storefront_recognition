@@ -11,7 +11,7 @@ class YelpParser:
             auth = Oauth1Authenticator(**creds)
             self.client = Client(auth)
 
-    def get_lexicon_names_by_position(self, distance, **coordinate):
+    def get_lexicon_names_by_bounding_box(self, distance, **coordinate):
         params = {'lang': 'en'}
         latitude_sw = coordinate['latitude'] + (distance * math.cos(-135 * math.pi / 180)) / 111
         longitude_sw = coordinate['longitude'] + (distance * math.sin(-135 * math.pi / 180)) / (
