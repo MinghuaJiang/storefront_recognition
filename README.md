@@ -1,1 +1,2 @@
-# UVA Fall 2016 CS6501003 Computer Visional Recognition 
+# Storefront Recognition 
+UVA Fall 2016 CS6501003 Computer Visional Recognition 
