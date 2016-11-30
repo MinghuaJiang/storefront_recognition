@@ -4,11 +4,11 @@ import json
 import math
 from bs4 import BeautifulSoup
 import urllib
-
+from google_street_view_parser import GoogleStreetViewParser
 
 class YelpParser:
     def __init__(self):
-        with open('config_secret.json') as cred:
+        with open('yelp_config_secret.json') as cred:
             creds = json.load(cred)
             auth = Oauth1Authenticator(**creds)
             self.client = Client(auth)
@@ -58,5 +58,8 @@ class YelpParser:
 
 if __name__ == '__main__':
     yelp_parser = YelpParser()
-    response = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=38.0345394, longitude=-78.5000063)
-    print(yelp_parser.get_outside_images_for_businesses(response))
+    yelp_response = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=38.0345394, longitude=-78.5000063)
+    print(yelp_parser.get_outside_images_for_businesses(yelp_response))
+    google_parser = GoogleStreetViewParser()
+    google_response = google_parser.get_image_for_businesses(yelp_response)
+    print(google_response)

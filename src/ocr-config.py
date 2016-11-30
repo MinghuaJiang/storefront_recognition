@@ -1,8 +1,8 @@
 {    
-     'from_pickle': True, 
-     'pickle_data': '/media/francesco/Francesco/CharacterProject/images-100000-(20, 20)-2014-10-08 11-59-04.710473.pickle',
-     'folder_labels': '/media/francesco/Francesco/CharacterProject/ImageTree', 
-     'folder_data': '/media/francesco/Francesco/CharacterProject', 
+     'from_pickle': False, 
+     'pickle_data': '../model/images-100000-(20, 20).pickle',
+     'folder_labels': '../ImageTree', 
+     'folder_data': '..', 
      'verbose': True, 
      'img_size': (20,20), 
      'limit': 0,

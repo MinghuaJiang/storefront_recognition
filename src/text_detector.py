@@ -26,18 +26,18 @@ class TextDetector:
         reads the image provided by the user as grey scale and preprocesses it.
         """
         self.image = imread(image_file, as_grey=True)
-        self.preprocess_image()
-
+        self.denoised_mage, self.thresh, self.bw, self.cleared = self.preprocess_image()
 
     def preprocess_image(self):
         """
         Denoises and increases contrast.
         """
-        image = restoration.denoise_tv_chambolle(self.image, weight=0.1)
-        thresh = threshold_otsu(image)
-        self.bw = closing(image > thresh, square(2))
-        self.cleared = self.bw.copy()
-        return self.cleared
+        denoised_image = restoration.denoise_tv_chambolle(self.image, weight=0.1)
+        thresh = threshold_otsu(denoised_image)
+        bw = closing(denoised_image > thresh, square(2))
+        cleared = bw.copy()
+
+        return denoised_image, thresh, bw, cleared
 
     ############################################################################################################
 
@@ -92,12 +92,12 @@ class TextDetector:
 
     ##########################################################################################################################
 
-    def select_text_among_candidates(self, model_filename2):
+    def select_text_among_candidates(self, model):
         """
         it takes as argument a pickle model and predicts whether the detected objects
         contain text or not.
         """
-        with open(model_filename2, 'rb') as fin:
+        with open(model, 'rb') as fin:
             model = cPickle.load(fin)
 
         is_text = model.predict(self.candidates['flattened'])
@@ -221,16 +221,11 @@ class TextDetector:
         plots pre-processed image. The plotted image is the same as obtained at the end
         of the get_text_candidates method.
         """
-        image = restoration.denoise_tv_chambolle(self.image, weight=0.1)
-        thresh = threshold_otsu(image)
-        bw = closing(image > thresh, square(2))
-        cleared = bw.copy()
-
-        label_image = measure.label(cleared)
-        borders = np.logical_xor(bw, cleared)
+        label_image = measure.label(self.cleared)
+        borders = np.logical_xor(self.bw, self.cleared)
 
         label_image[borders] = -1
-        image_label_overlay = label2rgb(label_image, image=image)
+        image_label_overlay = label2rgb(label_image, image=self.denoised_mage)
 
         fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(12, 12))
         ax.imshow(image_label_overlay)
@@ -253,11 +248,7 @@ if __name__ == '__main__':
     candidates = detector.get_text_candidates()
     # plots objects detected
     detector.plot_to_check(candidates, 'Total Objects Detected')
-    # selects objects containing text
-    maybe_text = detector.select_text_among_candidates(
-        '../model/linearsvc-hog-fulltrain2-90.pickle')
-    # plots objects after text detection
-    detector.plot_to_check(maybe_text, 'Objects Containing Text Detected')
+
 
 
 
