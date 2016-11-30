@@ -34,15 +34,15 @@ class YelpParser:
             longitude_ne,
             **params)
         result = dict()
-        result["id"] = [business.id for business in response.businesses]
-        result["name"] = [business.name for business in response.businesses]
+        for business in response.businesses:
+            result[business.id] = business
         return result
 
     def get_outside_images_for_businesses(self, businesses):
         result = dict()
-        for i in range(0, len(businesses["id"])):
-            url_list = self.get_outside_images_for_business(businesses["id"][i])
-            result[businesses["name"][i]] = url_list
+        for business_id in businesses.keys():
+            url_list = self.get_outside_images_for_business(business_id)
+            result[business_id] = url_list
         return result
 
     def get_outside_images_for_business(self, business_id):
@@ -59,6 +59,4 @@ class YelpParser:
 if __name__ == '__main__':
     yelp_parser = YelpParser()
     response = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=38.0345394, longitude=-78.5000063)
-    print(response["id"])
-    print(response["name"])
     print(yelp_parser.get_outside_images_for_businesses(response))
