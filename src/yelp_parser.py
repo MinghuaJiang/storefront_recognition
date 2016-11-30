@@ -30,4 +30,7 @@ class YelpParser:
             latitude_ne,
             longitude_ne,
             **params)
-        return [business.name for business in response.businesses]
+        result = dict()
+        result["id"] = [business.id for business in response.businesses]
+        result["name"] = [business.name for business in response.businesses]
+        return result
