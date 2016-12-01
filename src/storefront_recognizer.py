@@ -8,7 +8,7 @@ yelp_parser = YelpParser()
 google_parser = GoogleStreetViewParser()
 
 
-def get_business_info(image, latitude, longitude):
+def get_business_info_v1(image, latitude, longitude):
     result_dic = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=latitude, longitude=longitude)
     lexicons = generate_lexicons(result_dic)
     text_pdf = get_text_recognizer_pdf(image, lexicons)
@@ -17,6 +17,19 @@ def get_business_info(image, latitude, longitude):
     business_id = combine_pdf(text_pdf, image_pdf)
     response = result_dic[business_id]
     return json.dumps(generate_parsed_response(response))
+
+
+def get_business_info_v2(image, latitude, longitude):
+    result_dic = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=latitude, longitude=longitude)
+    business = get_business_from_trained_model(image)
+    lexicons = generate_lexicons(result_dic)
+    business_id = lexicons[business]
+    response = result_dic[business_id]
+    return json.dumps(generate_parsed_response(response))
+
+
+def get_business_from_trained_model(image):
+    return "Bodo's Bagels"
 
 
 def generate_lexicons(businesses):
@@ -52,4 +65,5 @@ def generate_parsed_response(response):
     return response_dict
 
 if __name__ == "__main__":
-    print(get_business_info("", 38.035440578, -78.5010249))
+    print(get_business_info_v1("", 38.035440578, -78.5010249))
+    print(get_business_info_v2("", 38.035440578, -78.5010249))
