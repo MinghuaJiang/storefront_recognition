@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import urllib
 from google_street_view_parser import GoogleStreetViewParser
 
+
 class YelpParser:
     def __init__(self):
         with open('yelp_config_secret.json') as cred:
@@ -23,9 +24,9 @@ class YelpParser:
         longitude_ne = coordinate['longitude'] + (distance * math.sin(45 * math.pi / 180)) / (
             111 * math.cos(coordinate['latitude'] * math.pi / 180))
 
-        print("original coordiate (%s, %s)" % (str(coordinate['latitude']), str(coordinate['longitude'])))
-        print("south west coordiate (%s, %s)" % (str(latitude_sw), str(longitude_sw)))
-        print("north east coordiate (%s, %s)" % (str(latitude_ne), str(longitude_ne)))
+        print("original coordinate (%s, %s)" % (str(coordinate['latitude']), str(coordinate['longitude'])))
+        print("south west coordinate (%s, %s)" % (str(latitude_sw), str(longitude_sw)))
+        print("north east coordinate (%s, %s)" % (str(latitude_ne), str(longitude_ne)))
 
         response = self.client.search_by_bounding_box(
             latitude_sw,
@@ -58,7 +59,7 @@ class YelpParser:
 
 if __name__ == '__main__':
     yelp_parser = YelpParser()
-    yelp_response = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude= 38.0354405, longitude=-78.5010249)
+    yelp_response = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=38.0354405, longitude=-78.5010249)
     print(yelp_parser.get_outside_images_for_businesses(yelp_response))
     google_parser = GoogleStreetViewParser()
     google_response = google_parser.get_image_for_businesses(yelp_response)
