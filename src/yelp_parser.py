@@ -58,7 +58,7 @@ class YelpParser:
 
 if __name__ == '__main__':
     yelp_parser = YelpParser()
-    yelp_response = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=38.0345394, longitude=-78.5000063)
+    yelp_response = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude= 38.0354405, longitude=-78.5010249)
     print(yelp_parser.get_outside_images_for_businesses(yelp_response))
     google_parser = GoogleStreetViewParser()
     google_response = google_parser.get_image_for_businesses(yelp_response)

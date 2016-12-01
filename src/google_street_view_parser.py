@@ -18,7 +18,9 @@ class GoogleStreetViewParser:
             location = business.location.coordinate
             latitude = location.latitude
             longitude = location.longitude
-            image_url = self.base_url + "&size=640x640&location="+str(latitude)+","+str(longitude)
-            image_list.append(image_url)
+            fov = [70, 80, 90]
+            for each in fov:
+                image_url = self.base_url + "&size=640x640&location="+str(latitude)+","+str(longitude)+"&fov="+str(each)
+                image_list.append(image_url)
             result[business_id] = image_list
         return result
