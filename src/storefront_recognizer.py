@@ -3,10 +3,10 @@ import json
 import text_recognizer
 from yelp_parser import YelpParser
 from google_street_view_parser import GoogleStreetViewParser
+import image_comparer
 
 yelp_parser = YelpParser()
 google_parser = GoogleStreetViewParser()
-
 
 def get_business_info_v1(image, latitude, longitude):
     result_dic = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=latitude, longitude=longitude)
@@ -41,11 +41,13 @@ def generate_lexicons(businesses):
 
 
 def get_nearby_image_info(businesses):
-    return 1
+    yelp_images = yelp_parser.get_outside_images_for_businesses(businesses)
+    google_images = google_parser.get_image_for_businesses(businesses)
+    return image_comparer.get_nearby_images(yelp_images, google_images)
 
 
 def get_image_recoginizer_pdf(image, near_by_image_dict):
-    return 1
+    return image_comparer.get_maxrank(image, near_by_image_dict)
 
 
 def get_text_recognizer_pdf(image, lexicons):
@@ -66,5 +68,5 @@ def generate_parsed_response(response):
     return response_dict
 
 if __name__ == "__main__":
-    print(get_business_info_v1("", 38.035440578, -78.5010249))
+    print(get_business_info_v1("bodo.jpg", 38.035440578, -78.5010249))
     print(get_business_info_v2("", 38.035440578, -78.5010249))
