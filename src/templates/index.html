@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Business Recognition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <link href="/static/index.css" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAI4zi1f7m-NsRm10Oiv5tWISJTNifUBwQ"></script>
+    </head>
+    <body data-gr-c-s-loaded="true">
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3>Storefront Recognition</h3>
+            </div>
+          </div>
+
+          <div class="inner cover">
+              <div>
+               <p class="loc">
+                    <input type="text" class="form-control" id="location" placeholder="Change a location..." autocomplete="off">
+               </p>
+                  <p class="search">
+                      <a href="#" id="search_loc" class="btn btn-lg btn-secondary">Search</a>
+                  </p>
+                   <p class="recognize">
+                      <a href="#" id="recognize_btn" class="btn btn-lg btn-secondary">Recognize</a>
+                  </p>
+              </div>
+              <div id="pano"></div>
+              <div id="position-panel">
+                <table>
+                    <tr>
+                    <td><b>Position</b></td><td id="position-cell" class="cell">&nbsp;</td>
+                    </tr>
+                </table>
+              </div>
+               <div id="recognize-panel">
+                  <table>
+                    <tr>
+                    <td><b>Name</b></td><td id="name-cell" class="cell">&nbsp;</td>
+                    </tr>
+                    <tr>
+                    <td><b>Address</b></td><td id="address-cell" class="cell">&nbsp;</td>
+                    </tr>
+                    <tr>
+                    <td><b>Category</b></td><td id="category-cell" class="cell">&nbsp;</td>
+                    </tr>
+                    <tr>
+                    <td><b>Rating</b></td><td id="rating-cell" class="cell">&nbsp;</td>
+                    </tr>
+                    <tr>
+                    <td><b>Phone</b></td><td id="phone-cell" class="cell">&nbsp;</td>
+                    </tr>
+                </table>
+              </div>
+          </div>
+
+          <div class="mastfoot">
+
+              <p>Storefront Recognition for <a href="http://www.cs.virginia.edu/~vicente/recognition/">Computer Visional Recognition</a>, by <a href="mailto:mj2eu@virginia.edu">@Minghua Jiang</a>, <a href="mailto:tj2cw@virginia.edu">@Tianyi Jin</a>.</p>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAI4zi1f7m-NsRm10Oiv5tWISJTNifUBwQ&callback=initPano"
+        async defer>
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+    <script src="/static/index.js"></script>
+    </body>
+</html>

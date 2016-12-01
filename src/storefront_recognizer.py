@@ -23,7 +23,8 @@ def get_business_info_v2(image, latitude, longitude):
     result_dic = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=latitude, longitude=longitude)
     business = get_business_from_trained_model(image)
     lexicons = generate_lexicons(result_dic)
-    business_id = lexicons[business]
+    #business_id = lexicons[business]
+    business_id = result_dic.keys()[0]
     response = result_dic[business_id]
     return json.dumps(generate_parsed_response(response))
 
