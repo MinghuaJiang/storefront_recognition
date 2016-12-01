@@ -13,12 +13,12 @@ def home():
 
 
 @app.route('/business_v1', methods=['POST'])
-def generate_business_info(image, latitude, longitude):
+def generate_business_info_v1(image, latitude, longitude):
     return storefront_recognizer.get_business_info_v1(image, latitude, longitude)
 
 
 @app.route('/business_v2', methods=['POST'])
-def generate_business_info(image, latitude, longitude):
+def generate_business_info_v2(image, latitude, longitude):
     return storefront_recognizer.get_business_info_v1(image, latitude, longitude)
 
 

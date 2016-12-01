@@ -13,7 +13,7 @@ def get_business_info_v1(image, latitude, longitude):
     lexicons = generate_lexicons(result_dic)
     text_pdf = get_text_recognizer_pdf(image, lexicons)
     near_by_images = get_nearby_image_info(result_dic)
-    image_pdf = get_image_recoginizer_pdf(image,near_by_images)
+    image_pdf = get_image_recoginizer_pdf(image, near_by_images)
     business_id = combine_pdf(text_pdf, image_pdf)
     response = result_dic[business_id]
     return json.dumps(generate_parsed_response(response))
