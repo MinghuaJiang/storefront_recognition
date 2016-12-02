@@ -7,10 +7,12 @@ from collections import Counter
 
 YELP_IMAGES_NUM = 7
 
+
 def get_nearby_images(yelpImages, googleImages):
     yelpImages = {key: yelpImages[key][0:YELP_IMAGES_NUM] for key in yelpImages.keys()}
     businessImages = Counter(yelpImages)+Counter(googleImages)
     return dict(businessImages)
+
 
 def get_maxrank(queryImage, businessImages):
     ranks = {key: get_businessrank(queryImage, businessImages[key], key) for key in businessImages.keys()}
@@ -18,6 +20,7 @@ def get_maxrank(queryImage, businessImages):
     maxrank = max(ranks, key=ranks.get)
     print "max rank business is %s, rank is %d" % (maxrank, ranks[maxrank])
     return maxrank
+
 
 def get_businessrank(queryImage, businessImages, key):
     ranks = []
@@ -30,6 +33,7 @@ def get_businessrank(queryImage, businessImages, key):
     # print(key, ranks)
     rank = sum(ranks) / float(len(ranks))
     return rank
+
 
 def compare_image(queryImage, trainImage):
     img1 = cv2.imread(queryImage, 0)

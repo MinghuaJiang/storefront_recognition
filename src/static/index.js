@@ -1,4 +1,6 @@
 var panorama;
+var heading;
+var pitch;
 $("#search_loc").click(function() {
     var txt = $("#location").val();
     var location = 'https://maps.googleapis.com/maps/api/geocode/json?address='+ txt +'&key=AIzaSyC5BG3tKK5d_5c5g94vRqQi3rVT5ox1mZw'
@@ -17,7 +19,8 @@ $("#recognize_btn").click(function() {
     var matches = regExp.exec(txt);
     var lat = matches[1];
     var lng = matches[2];
-    $.post('/business_v2', {latitude:lat, longitude:lng}).done(function(data) {
+    image_url = 'https://maps.googleapis.com/maps/api/streetview?key=AIzaSyCr5URKUmr0trM2QqKb0OBDHUUz-NvepsY&size=640x640&location='+lat+','+lng+'&heading='+heading+'&pitch='+pitch
+    $.post('/business_v1', {url:image_url, latitude:lat, longitude:lng}).done(function(data) {
         json = JSON.parse(data)
         var nameCell = document.getElementById('name-cell');
         nameCell.firstChild.nodeValue = json["name"]
@@ -29,7 +32,6 @@ $("#recognize_btn").click(function() {
         ratingCell.firstChild.nodeValue = json["rating"]
         var phoneCell = document.getElementById('phone-cell');
         phoneCell.firstChild.nodeValue = json["phone"]
-
     });
 });
 
@@ -39,6 +41,7 @@ function initPano() {
         position: {lat: 38.035440578, lng: -78.5010249},
         visible: true
     });
+
     panorama.addListener('position_changed', function() {
         var positionCell = document.getElementById('position-cell');
         positionCell.firstChild.nodeValue = panorama.getPosition() + '';
@@ -64,5 +67,7 @@ function initPano() {
         ratingCell.firstChild.nodeValue = ''
         var phoneCell = document.getElementById('phone-cell');
         phoneCell.firstChild.nodeValue = ''
+        heading = panorama.getPov().heading;
+        pitch = panorama.getPov().pitch;
   });
 }

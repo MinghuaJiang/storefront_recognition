@@ -8,7 +8,9 @@ import image_comparer
 yelp_parser = YelpParser()
 google_parser = GoogleStreetViewParser()
 
-def get_business_info_v1(image, latitude, longitude):
+
+def get_business_info_v1(image_url, latitude, longitude):
+    image = get_image_from_url(image_url)
     result_dic = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=latitude, longitude=longitude)
     lexicons = generate_lexicons(result_dic)
     text_pdf = get_text_recognizer_pdf(image, lexicons)
@@ -19,7 +21,9 @@ def get_business_info_v1(image, latitude, longitude):
     return json.dumps(generate_parsed_response(response))
 
 
-def get_business_info_v2(image, latitude, longitude):
+def get_business_info_v2(image_url, latitude, longitude):
+    print(image_url)
+    image = get_image_from_url(image_url)
     result_dic = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=latitude, longitude=longitude)
     business = get_business_from_trained_model(image)
     lexicons = generate_lexicons(result_dic)
@@ -27,6 +31,10 @@ def get_business_info_v2(image, latitude, longitude):
     business_id = result_dic.keys()[0]
     response = result_dic[business_id]
     return json.dumps(generate_parsed_response(response))
+
+
+def get_image_from_url(image_url):
+    return ""
 
 
 def get_business_from_trained_model(image):
