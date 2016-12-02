@@ -20,7 +20,7 @@ $("#recognize_btn").click(function() {
     var lat = matches[1];
     var lng = matches[2];
     image_url = 'https://maps.googleapis.com/maps/api/streetview?key=AIzaSyCr5URKUmr0trM2QqKb0OBDHUUz-NvepsY&size=640x640&location='+lat+','+lng+'&heading='+heading+'&pitch='+pitch
-    $.post('/business_v2', {url:image_url, latitude:lat, longitude:lng}).done(function(data) {
+    $.post('/business_v1', {url:image_url, latitude:lat, longitude:lng}).done(function(data) {
         json = JSON.parse(data)
         var nameCell = document.getElementById('name-cell');
         nameCell.firstChild.nodeValue = json["name"]
