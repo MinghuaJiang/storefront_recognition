@@ -22,7 +22,6 @@ def get_business_info_v1(image_url, latitude, longitude):
 
 
 def get_business_info_v2(image_url, latitude, longitude):
-    print(image_url)
     image = get_image_from_url(image_url)
     result_dic = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=latitude, longitude=longitude)
     business = get_business_from_trained_model(image)
