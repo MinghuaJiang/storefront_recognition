@@ -4,6 +4,7 @@ import text_recognizer
 from yelp_parser import YelpParser
 from google_street_view_parser import GoogleStreetViewParser
 import image_comparer
+import urllib
 
 yelp_parser = YelpParser()
 google_parser = GoogleStreetViewParser()
@@ -33,7 +34,9 @@ def get_business_info_v2(image_url, latitude, longitude):
 
 
 def get_image_from_url(image_url):
-    return ""
+    image_name = "scene.jpg"
+    urllib.urlretrieve(image_url, image_name)
+    return image_name
 
 
 def get_business_from_trained_model(image):
@@ -62,7 +65,7 @@ def get_text_recognizer_pdf(image, lexicons):
 
 
 def combine_pdf(text_pdf, image_pdf):
-    return "bodos-bagels-charlottesville"
+    return image_pdf
 
 
 def generate_parsed_response(response):

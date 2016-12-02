@@ -6,7 +6,7 @@ from google_street_view_parser import GoogleStreetViewParser
 from collections import Counter
 
 YELP_IMAGES_NUM = 7
-
+MAX_RANK_WEIGHTS = [0.1, 0.3, 0.6]
 
 def get_nearby_images(yelpImages, googleImages):
     yelpImages = {key: yelpImages[key][0:YELP_IMAGES_NUM] for key in yelpImages.keys()}
@@ -30,8 +30,9 @@ def get_businessrank(queryImage, businessImages, key):
         image = cv2.imdecode(image, 0)
         if image is not None:
             ranks.append(len(compare_image(queryImage, image)))
-    # print(key, ranks)
-    rank = sum(ranks) / float(len(ranks))
+    max_ranks = sorted(ranks)[-len(MAX_RANK_WEIGHTS):]
+    rank = sum([a*b for a,b in zip(max_ranks, MAX_RANK_WEIGHTS)])
+    print(key, max_ranks, rank)
     return rank
 
 
