@@ -20,7 +20,7 @@ $("#recognize_btn").click(function() {
     var lat = matches[1];
     var lng = matches[2];
     image_url = 'https://maps.googleapis.com/maps/api/streetview?key=AIzaSyCr5URKUmr0trM2QqKb0OBDHUUz-NvepsY&size=640x640&location='+lat+','+lng+'&heading='+heading+'&pitch='+pitch
-    $.post('/business_v1', {url:image_url, latitude:lat, longitude:lng}).done(function(data) {
+    $.post('/business_v2', {url:image_url, latitude:lat, longitude:lng}).done(function(data) {
         json = JSON.parse(data)
         var nameCell = document.getElementById('name-cell');
         nameCell.firstChild.nodeValue = json["name"]
@@ -32,6 +32,7 @@ $("#recognize_btn").click(function() {
         ratingCell.firstChild.nodeValue = json["rating"]
         var phoneCell = document.getElementById('phone-cell');
         phoneCell.firstChild.nodeValue = json["phone"]
+        document.getElementById('recognize-panel').style.display = 'block'
     });
 });
 
@@ -45,28 +46,10 @@ function initPano() {
     panorama.addListener('position_changed', function() {
         var positionCell = document.getElementById('position-cell');
         positionCell.firstChild.nodeValue = panorama.getPosition() + '';
-        var nameCell = document.getElementById('name-cell');
-        nameCell.firstChild.nodeValue = ''
-        var addressCell = document.getElementById('address-cell');
-        addressCell.firstChild.nodeValue = ''
-        var categoryCell = document.getElementById('category-cell');
-        categoryCell.firstChild.nodeValue = ''
-        var ratingCell = document.getElementById('rating-cell');
-        ratingCell.firstChild.nodeValue = ''
-        var phoneCell = document.getElementById('phone-cell');
-        phoneCell.firstChild.nodeValue = ''
+        document.getElementById('recognize-panel').style.display = 'none'
     });
     panorama.addListener('pov_changed', function() {
-        var nameCell = document.getElementById('name-cell');
-        nameCell.firstChild.nodeValue = ''
-        var addressCell = document.getElementById('address-cell');
-        addressCell.firstChild.nodeValue = ''
-        var categoryCell = document.getElementById('category-cell');
-        categoryCell.firstChild.nodeValue = ''
-        var ratingCell = document.getElementById('rating-cell');
-        ratingCell.firstChild.nodeValue = ''
-        var phoneCell = document.getElementById('phone-cell');
-        phoneCell.firstChild.nodeValue = ''
+        document.getElementById('recognize-panel').style.display = 'none'
         heading = panorama.getPov().heading;
         pitch = panorama.getPov().pitch;
   });

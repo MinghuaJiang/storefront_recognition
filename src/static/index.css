@@ -65,55 +65,51 @@ body {
 
 .loc{
     position: absolute;
-    left: 25px;
-    top: 80px;
+    left: 5%;
+    top: 12%;
 }
 
 
 .search{
     position: absolute;
-    left: 25px;
-    top: 150px;
+    left: 4%;
+    top: 22%;
 }
 
 
 .recognize{
     position: absolute;
-    left: 160px;
-    top: 150px;
+    left: 14%;
+    top: 22%;
 }
 
  #pano {
         position: absolute;
-        width: 900px;
-        height: 500px;
-        left: 350px;
-        top: 70px;
+        width: 60%;
+        height: 80%;
+        left: 37%;
+        top: 12%;
  }
 
 #position-panel {
         position: absolute;
-        width: 100px;
-        height: 500px;
         text-align: left;
-        left:40px;
-        top:220px;
+        left:5%;
+        top:32%;
       }
 
 #recognize-panel {
         position: absolute;
-        width: 100px;
-        height: 200px;
         text-align: left;
-        left: 40px;
-        top: 285px;
+        left: 5%;
+        top: 50%;
+        display:none;
 }
 
 .cell{
-        padding-left: 35px;
-        width: 200px;
-        padding-top:7px;
-        padding-bottom:7px;
+        padding-left: 12%;
+        padding-top:1%;
+        padding-bottom:1%;
 }
 
 .masthead {
