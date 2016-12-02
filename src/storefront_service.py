@@ -23,6 +23,7 @@ def generate_business_info_v1():
 @app.route('/business_v2', methods=['POST'])
 def generate_business_info_v2():
     image_url = request.form['url']
+    print(image_url)
     latitude = float(request.form['latitude'])
     longitude = float(request.form['longitude'])
     return storefront_recognizer.get_business_info_v2(image_url, latitude, longitude)

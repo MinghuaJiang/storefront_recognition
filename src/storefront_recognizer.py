@@ -5,6 +5,7 @@ from yelp_parser import YelpParser
 from google_street_view_parser import GoogleStreetViewParser
 import image_comparer
 import urllib
+from collections import Counter
 
 yelp_parser = YelpParser()
 google_parser = GoogleStreetViewParser()
@@ -27,8 +28,7 @@ def get_business_info_v2(image_url, latitude, longitude):
     result_dic = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=latitude, longitude=longitude)
     business = get_business_from_trained_model(image)
     lexicons = generate_lexicons(result_dic)
-    #business_id = lexicons[business]
-    business_id = result_dic.keys()[0]
+    business_id = lexicons[business]
     response = result_dic[business_id]
     return json.dumps(generate_parsed_response(response))
 
@@ -65,7 +65,17 @@ def get_text_recognizer_pdf(image, lexicons):
 
 
 def combine_pdf(text_pdf, image_pdf):
-    return image_pdf
+    text_weight, image_weight = get_trained_weight()
+    combined_dict = Counter()
+    for key in text_pdf.keys():
+        combined_dict[key] += text_pdf[key] * text_weight
+    for key in image_pdf.keys():
+        combined_dict[key] += image_pdf[key] * image_weight
+    return combined_dict.most_common(1)[0][0]
+
+
+def get_trained_weight():
+    return 0.6, 0.4
 
 
 def generate_parsed_response(response):
@@ -76,6 +86,7 @@ def generate_parsed_response(response):
     response_dict["category"] = ",".join([category[0] for category in response.categories])
     response_dict["phone"] = response.display_phone
     return response_dict
+
 
 if __name__ == "__main__":
     print(get_business_info_v1("bodo.jpg", 38.035440578, -78.5010249))

@@ -8,6 +8,7 @@ from collections import Counter
 YELP_IMAGES_NUM = 7
 MAX_RANK_WEIGHTS = [0.1, 0.3, 0.6]
 
+
 def get_nearby_images(yelpImages, googleImages):
     yelpImages = {key: yelpImages[key][0:YELP_IMAGES_NUM] for key in yelpImages.keys()}
     businessImages = Counter(yelpImages)+Counter(googleImages)
