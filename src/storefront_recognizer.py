@@ -57,7 +57,7 @@ def get_nearby_image_info(businesses):
 
 
 def get_image_recoginizer_pdf(image, near_by_image_dict):
-    return image_comparer.get_maxrank(image, near_by_image_dict)
+    return image_comparer.get_rankpdf(image, near_by_image_dict)
 
 
 def get_text_recognizer_pdf(image, lexicons):
