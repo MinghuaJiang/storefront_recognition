@@ -5,12 +5,14 @@ from yelp_parser import YelpParser
 from google_street_view_parser import GoogleStreetViewParser
 from collections import Counter
 
-YELP_IMAGES_NUM = 7
-MAX_RANK_WEIGHTS = [0.1, 0.3, 0.6]
+YELP_IMAGES_NUM = 4
+GOOGLE_IMAGES_NUM = 2 # less than 3
+MAX_RANK_WEIGHTS = [0.6, 0.3, 0.1]
 PDF_LENGTH = 3
 
 def get_nearby_images(yelpImages, googleImages):
     yelpImages = {key: yelpImages[key][0:YELP_IMAGES_NUM] for key in yelpImages.keys()}
+    googleImages = {key: googleImages[key][0:GOOGLE_IMAGES_NUM] for key in googleImages.keys()}
     businessImages = Counter(yelpImages)+Counter(googleImages)
     return dict(businessImages)
 
@@ -43,7 +45,7 @@ def get_businessrank(queryImage, businessImages, key):
 
 def compute_rank(ranks, key, method):
     if method == 'weight':
-        max_ranks = sorted(ranks)[-len(MAX_RANK_WEIGHTS):]
+        max_ranks = sorted(ranks, reverse=True)[0:len(MAX_RANK_WEIGHTS)]
         rank = sum([a*b for a,b in zip(max_ranks, MAX_RANK_WEIGHTS)])
     elif method == 'avg':
         max_ranks = ranks
