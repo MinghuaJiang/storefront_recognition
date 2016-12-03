@@ -6,6 +6,7 @@ from google_street_view_parser import GoogleStreetViewParser
 import image_comparer
 import urllib
 from collections import Counter
+import torch_cnn_model
 
 yelp_parser = YelpParser()
 google_parser = GoogleStreetViewParser()
@@ -40,6 +41,7 @@ def get_image_from_url(image_url):
 
 
 def get_business_from_trained_model(image):
+    torch_cnn_model.predict(image)
     return "Bodo's Bagels"
 
 
@@ -89,5 +91,6 @@ def generate_parsed_response(response):
 
 
 if __name__ == "__main__":
-    print(get_business_info_v1("bodo.jpg", 38.035440578, -78.5010249))
-    print(get_business_info_v2("", 38.035440578, -78.5010249))
+    print(get_business_from_trained_model(""))
+    #print(get_business_info_v1("bodo.jpg", 38.035440578, -78.5010249))
+    #print(get_business_info_v2("", 38.035440578, -78.5010249))
