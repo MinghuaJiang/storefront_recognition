@@ -81,6 +81,7 @@ def compare_image_sift(queryImage, trainImage):
 
     return good
 
+
 def compare_image_orb(queryImage, trainImage):
     img1 = cv2.imread(queryImage, 0)
     img2 = trainImage
