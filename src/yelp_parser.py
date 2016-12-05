@@ -58,7 +58,7 @@ class YelpParser:
         return result
 
     def get_businessname(self, business_id):
-        if business_id == '':
+        if business_id == '' or business_id is None:
             return ''
         else:
             params = {'lang': 'en'}

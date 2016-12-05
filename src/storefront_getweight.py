@@ -17,17 +17,16 @@ datapath = 'outside_all_s'
 def get_testresults(image, name, address):
     lat, lng = get_position(address)
     result_dic = yelp_parser.get_lexicon_names_by_bounding_box(0.15, latitude=lat, longitude=lng)
-    # lexicons = storefront_recognizer.generate_lexicons(result_dic)
-    # text_result = text_recognizer.detect_and_recognize_text_for_training(image, lexicons)
-    text_result = 'yelp-san-francisco'
+    lexicons = storefront_recognizer.generate_lexicons(result_dic)
+    text_result = text_recognizer.detect_and_recognize_text_for_training(image, lexicons)
     near_by_images = storefront_recognizer.get_nearby_image_info(result_dic)
     image_result = image_comparer.get_maxrank(image, near_by_images)
-    print(name, image_result)
+    # print(name, image_result, text_result)
     text_name, image_name = yelp_parser.get_businessname(text_result), yelp_parser.get_businessname(image_result)
     return [name_euqal(image_name, name), name_euqal(text_name, name)]
 
 def name_euqal(name1, name2):
-    return name1 in name2
+    return name1 == name2 or name1 == name2 + ' '
 
 
 def get_position(address):
@@ -74,5 +73,8 @@ if __name__ == "__main__":
             print(name, result)
             print(get_weight(results))
 
+            if counter % 30 == 0:
+                pickle.dump( res_dict, open( "weight.p", "wb" ) )
+
     weight = get_weight(results)
-    pickle.dump( res_dict, open( "image.p", "wb" ) )
+    pickle.dump( res_dict, open( "weight.p", "wb" ) )
