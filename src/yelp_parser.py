@@ -57,6 +57,14 @@ class YelpParser:
         socket.close()
         return result
 
+    def get_businessname(self, business_id):
+        if business_id == '':
+            return ''
+        else:
+            params = {'lang': 'en'}
+            response = self.client.get_business(business_id, **params)
+            return response.business.name
+
 
 if __name__ == '__main__':
     yelp_parser = YelpParser()
@@ -65,3 +73,4 @@ if __name__ == '__main__':
     google_parser = GoogleStreetViewParser()
     google_response = google_parser.get_image_for_businesses(yelp_response)
     print(google_response)
+    print(yelp_parser.get_businessname('yelp-san-francisco'))

@@ -26,8 +26,12 @@ def get_rankpdf(queryImage, businessImages):
 
 def get_maxrank(queryImage, businessImages):
     ranks = {key: get_businessrank(queryImage, businessImages[key], key) for key in businessImages.keys()}
-    maxrank = max(ranks, key=ranks.get)
-    print "max rank business is %s, rank is %d" % (maxrank, ranks[maxrank])
+    if not ranks:
+        maxrank = ''
+        print('empty!')
+    else:
+        maxrank = max(ranks, key=ranks.get)
+    # print "max rank business is %s, rank is %d" % (maxrank, ranks[maxrank])
     return maxrank
 
 
@@ -56,6 +60,8 @@ def compute_rank(ranks, key, method):
 
 def compare_image_sift(queryImage, trainImage):
     img1 = cv2.imread(queryImage, 0)
+    if img1 is None:
+        print "queryImage %s read error " % (queryImage)
     img2 = trainImage
 
     # Initiate SIFT detector
@@ -84,6 +90,8 @@ def compare_image_sift(queryImage, trainImage):
 
 def compare_image_orb(queryImage, trainImage):
     img1 = cv2.imread(queryImage, 0)
+    if img1 is None:
+        print "queryImage %s read error " % (queryImage)
     img2 = trainImage
 
     # Initiate ORB detector
